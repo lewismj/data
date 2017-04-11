@@ -33,9 +33,12 @@ object Predef {
   import scala.annotation.{implicitNotFound}
   import scala.{deprecated, inline}
 
+  import scala.language.implicitConversions
+
   @inline def identity[A](a: A): A = a
   def implicitly[A](implicit a: A): A = a
 
+  type Nothing = scala.Nothing
   type Boolean = scala.Boolean
   type Char = scala.Char
   type Unit = scala.Unit
@@ -90,9 +93,10 @@ object Predef {
   final val StringContext = scala.StringContext
   final val Range = scala.collection.immutable.Range
 
-  final class ArrowAssoc[A](val x: A) {
-    def -> [B](y: B): (A, B) = (x, y)
-  }
+  final class ArrowAssoc[A](val x: A) { def ->[B](y: B): (A, B) = (x, y) }
   implicit def any2ArrowAssoc[A](x: A): ArrowAssoc[A] = new ArrowAssoc(x)
+
+  /** Allowable exceptions. */
+  type NoSuchElementException = scala.NoSuchElementException
 
 }

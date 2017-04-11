@@ -23,34 +23,27 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package data
+package tests
 
+import data.Predef._
+import data.BinaryTree._
 
-/** Simple BinaryTree to illustrate Zipper. */
+class BinaryTreeSpec extends DataSuite {
 
-object BinaryTree {
+  test("binary tree traversal") {
+    val exampleTree = Node(0,
+                        Node(1,
+                          Node(2,Leaf,Leaf),
+                          Leaf),
+                        Node(3,
+                          Node(4, Leaf,Leaf),
+                          Node(5, Node(6,Leaf,Leaf),Leaf)))
 
+    //case class Zipper[A](focus: A, left: BinaryTree[A], right: BinaryTree[A], above: List[AboveContext[A]])
+    val z = BinaryTreeZipper[Int](5,Node(6,Leaf,Leaf),Leaf,List.)
 
-  abstract class BinaryTree[+A] {
-    def value: A
-    def empty: Boolean
-    def left: BinaryTree[A]
-    def right: BinaryTree[A]
+    true should be (true)
+
   }
-
-  case class Node[+A](value: A, left: BinaryTree[A], right: BinaryTree[A]) extends BinaryTree[A] {
-    override def empty: Boolean = false
-  }
-
-  case object Leaf extends BinaryTree[Nothing] {
-
-    override def value: Nothing = throw new NoSuchElementException("Leaf.value")
-
-    override def left: BinaryTree[Nothing] = throw new NoSuchElementException("Leaf.left")
-
-    override def right: BinaryTree[Nothing] = throw new NoSuchElementException("Left.right")
-
-    override def empty: Boolean = true
-  }
-
 
 }

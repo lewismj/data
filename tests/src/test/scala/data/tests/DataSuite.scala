@@ -25,6 +25,7 @@
 package data
 package tests
 
+import data.arbitrary.tests.AllArbitrary
 import org.scalatest.prop.{Checkers, GeneratorDrivenPropertyChecks}
 import org.scalatest.{BeforeAndAfterAll, FunSuite, Matchers}
 import org.typelevel.discipline.scalatest.Discipline
@@ -35,5 +36,6 @@ trait DataSuite extends FunSuite
   with Checkers
   with Matchers
   with GeneratorDrivenPropertyChecks
-  with Discipline {
+  with Discipline
+  with AllArbitrary {
 }

@@ -23,43 +23,9 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package data
-
-import data.Predef._
-import scala.language.implicitConversions
-
-object ListZipper {
-  /**
-    * Context around the list, elements to the left of the element in focus,
-    * and elements to the right of the element in focus.
-    *
-    * @param left   elements to the left of the element in focus.
-    * @param right  elements to the right of the element in focus.
-    * @tparam A the element type.
-    */
-    case class Context[A](left: List[A], right: List[A])
-
-    case class Zipper[A](focus: A, context: Context[A]) {
-      def left: List[A]   = context.left
-      def right: List[A]  = context.right
-
-      def fromZipper: List[A] = (left :+ focus) ::: right
-
-      /** Will throw NoSuchElementException if try to move beyond start. */
-
-      def forward: Zipper[A] = Zipper(right.head,Context(left :+ focus,right.tail))
-      def backward: Zipper[A] = Zipper(left.last,Context(left.init, focus :: right))
-
-      /** Update the focus element. */
-      def update(a: A): Zipper[A] = Zipper(a,context)
-      def mapFocus(f: A => A): Zipper[A] = Zipper(f(focus),context)
-    }
+package arbitrary
+package tests
 
 
-    def apply[A](left: List[A], focus: A, right: List[A]): Zipper[A]
-      = Zipper(focus,Context(left,right))
-
-    def apply[A](xs: List[A]): Zipper[A]
-        = Zipper(xs.head,Context(List.empty[A],xs.tail))
-
-
-}
+trait AllArbitrary
+  extends ArbitraryNel

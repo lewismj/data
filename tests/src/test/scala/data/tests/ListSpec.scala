@@ -27,8 +27,9 @@ package tests
 
 import data.Predef._
 
-
 class ListSpec extends DataSuite {
+
+
 
   test("can zip forward.") {
     val zipper = ListZipper(List(1,2,3,4))
@@ -38,6 +39,11 @@ class ListSpec extends DataSuite {
     z0.focus should be(2)
     z0.left should be (List(1))
     z0.right should be (List(3,4))
+
+    val z1 = z0.update(9)
+    z1.focus should be(9)
+    z1.left should be (List(1))
+    z1.right should be (List(3,4))
   }
 
   test("can zip backward") {
@@ -48,5 +54,6 @@ class ListSpec extends DataSuite {
     z0.left should be (List(1))
     z0.right should be (List(3,4,5))
   }
+
 
 }

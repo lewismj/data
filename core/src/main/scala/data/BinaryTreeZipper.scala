@@ -24,42 +24,50 @@
  */
 package data
 
+import data.BinaryTree.{BinaryTree, Node}
 import data.Predef._
-import scala.language.implicitConversions
-
-object ListZipper {
-  /**
-    * Context around the list, elements to the left of the element in focus,
-    * and elements to the right of the element in focus.
-    *
-    * @param left   elements to the left of the element in focus.
-    * @param right  elements to the right of the element in focus.
-    * @tparam A the element type.
-    */
-    case class Context[A](left: List[A], right: List[A])
-
-    case class Zipper[A](focus: A, context: Context[A]) {
-      def left: List[A]   = context.left
-      def right: List[A]  = context.right
-
-      def fromZipper: List[A] = (left :+ focus) ::: right
-
-      /** Will throw NoSuchElementException if try to move beyond start. */
-
-      def forward: Zipper[A] = Zipper(right.head,Context(left :+ focus,right.tail))
-      def backward: Zipper[A] = Zipper(left.last,Context(left.init, focus :: right))
-
-      /** Update the focus element. */
-      def update(a: A): Zipper[A] = Zipper(a,context)
-      def mapFocus(f: A => A): Zipper[A] = Zipper(f(focus),context)
-    }
 
 
-    def apply[A](left: List[A], focus: A, right: List[A]): Zipper[A]
-      = Zipper(focus,Context(left,right))
 
-    def apply[A](xs: List[A]): Zipper[A]
-        = Zipper(xs.head,Context(List.empty[A],xs.tail))
+/** Simple BinaryTree to illustrate Zipper. */
+
+object BinaryTree {
+  abstract class BinaryTree[+A] {
+    def value: A
+    def empty: Boolean
+    def left: BinaryTree[A]
+    def right: BinaryTree[A]
+  }
+
+  case class Node[+A](value: A, left: BinaryTree[A], right: BinaryTree[A]) extends BinaryTree[A] {
+    override def empty: Boolean = false
+  }
+
+  case object Leaf extends BinaryTree[Nothing] {
+    override def value: Nothing = throw new NoSuchElementException("Leaf.value")
+    override def left: BinaryTree[Nothing] = throw new NoSuchElementException("Leaf.left")
+    override def right: BinaryTree[Nothing] = throw new NoSuchElementException("Left.right")
+    override def empty: Boolean = true
+  }
+
+}
+
+object BinaryTreeZipper {
+
+  sealed trait Direction
+  case object Left extends Direction
+  case object Right extends Direction
+
+  case class AboveContext[A](direction: Direction, value: A, tree: BinaryTree[A])
+
+  case class Zipper[A](focus: A, left: BinaryTree[A], right: BinaryTree[A], above: List[AboveContext[A]]) {
 
 
+
+
+    /** Update the focus element. */
+    def update(a: A): Zipper[A] = Zipper(a,left,right,above)
+    def mapFocus(f: A=>A): Zipper[A] = Zipper(f(focus),left,right,above)
+
+  }
 }
