@@ -38,10 +38,7 @@ class BinaryTreeSpec extends DataSuite {
                         Node(3,
                           Node(4, Leaf,Leaf),
                           Node(5, Node(6,Leaf,Leaf),Leaf)))
-
-    //case class Zipper[A](focus: A, left: BinaryTree[A], right: BinaryTree[A], above: List[AboveContext[A]])
-    val z = BinaryTreeZipper[Int](5,Node(6,Leaf,Leaf),Leaf,List.)
-
+    
     true should be (true)
 
   }
