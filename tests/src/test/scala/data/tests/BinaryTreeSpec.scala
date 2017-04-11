@@ -41,10 +41,13 @@ class BinaryTreeSpec extends DataSuite {
                           Node(5, Node(6,Leaf,Leaf),Leaf)))
 
 
+    val z0 = BinaryTreeZipper(exampleTree)
 
+    val z1 = z0.moveRight
+    val z2 = z1.moveRight
 
-    true should be (true)
-
+    z1.focus should be(3)
+    z2.focus should be(5)
   }
 
 }

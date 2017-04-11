@@ -63,7 +63,7 @@ object BinaryTreeZipper {
   case class Zipper[A](focus: A, left: BinaryTree[A], right: BinaryTree[A], above: List[ParentContext[A]]) {
 
     @tailrec
-    def fromZipper: BinaryTree[A] = if (above.isEmpty) Node(focus,left,right) else moveUp.fromZipper
+    final def fromZipper: BinaryTree[A] = if (above.isEmpty) Node(focus,left,right) else moveUp.fromZipper
 
     /** directions are up, left and right. */
 
