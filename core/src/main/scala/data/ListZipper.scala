@@ -31,7 +31,7 @@ object ListZipper {
 
     case class Zipper[A](focus: A, left: List[A], right: List[A]) {
 
-      def fromZipper: List[A] = (left :+ focus) ::: right
+      def fromZipper: List[A] = left ::: List(focus) ::: right
 
       /** Will throw NoSuchElementException if try to move beyond start. */
       def forward: Zipper[A] = Zipper(right.head,left :+ focus,right.tail)

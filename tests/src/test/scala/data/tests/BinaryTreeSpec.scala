@@ -38,7 +38,7 @@ class BinaryTreeSpec extends DataSuite {
                         Node(3,
                           Node(4, Leaf,Leaf),
                           Node(5, Node(6,Leaf,Leaf),Leaf)))
-    
+
     true should be (true)
 
   }
