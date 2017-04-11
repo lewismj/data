@@ -35,7 +35,7 @@ class ListSpec extends DataSuite {
     val zipper = ListZipper(List(1,2,3,4))
     zipper.focus should be (1)
 
-    val z0 = zipper.forward
+    val z0 = zipper.moveForward
     z0.focus should be(2)
     z0.left should be (List(1))
     z0.right should be (List(3,4))
@@ -50,7 +50,7 @@ class ListSpec extends DataSuite {
     val zipper = ListZipper(List(1,2),3,List(4,5))
     zipper.focus should be (3)
 
-    val z0 = zipper.backward
+    val z0 = zipper.moveBackward
     z0.left should be (List(1))
     z0.right should be (List(3,4,5))
   }

@@ -34,8 +34,10 @@ object ListZipper {
       def fromZipper: List[A] = left ::: List(focus) ::: right
 
       /** Will throw NoSuchElementException if try to move beyond start. */
-      def forward: Zipper[A] = Zipper(right.head,left :+ focus,right.tail)
-      def backward: Zipper[A] = Zipper(left.last,left.init, focus :: right)
+
+      /** directions are forward and backward across the list. */
+      def moveForward: Zipper[A] = Zipper(right.head,left :+ focus,right.tail)
+      def moveBackward: Zipper[A] = Zipper(left.last,left.init,focus :: right)
 
       /** Update the focus element. */
       def update(a: A): Zipper[A] = Zipper(a,left,right)

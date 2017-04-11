@@ -62,12 +62,26 @@ object BinaryTreeZipper {
 
   case class Zipper[A](focus: A, left: BinaryTree[A], right: BinaryTree[A], above: List[AboveContext[A]]) {
 
+    /** directions are up, left and right. */
 
+    def moveUp: Zipper[A] = above match {
+      case AboveContext(d,p,s) :: cs if d == Left   => Zipper(p, Node(focus,left,right), s, cs)
+      case AboveContext(d,p,s) :: cs if d == Right  => Zipper(p, s, Node(focus,left,right), cs)
+      case _ => throw new NoSuchElementException("up. Already at root.")
+    }
 
+    def moveLeft: Zipper[A] = left match {
+      case Node(_,_,_) => ???
+      case _ => throw new NoSuchElementException("left. At leaf node.")
+    }
+
+    def moveRight: Zipper[A] = right match {
+      case Node(_,_,_) => ???
+      case _ => throw new NoSuchElementException("right. At leaf node.")
+    }
 
     /** Update the focus element. */
     def update(a: A): Zipper[A] = Zipper(a,left,right,above)
     def mapFocus(f: A=>A): Zipper[A] = Zipper(f(focus),left,right,above)
-
   }
 }
