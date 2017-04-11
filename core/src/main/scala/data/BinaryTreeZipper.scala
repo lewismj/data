@@ -61,7 +61,7 @@ object BinaryTreeZipper {
   case class ParentContext[A](direction: Direction, value: A, tree: BinaryTree[A])
 
   case class Zipper[A](focus: A, left: BinaryTree[A], right: BinaryTree[A], above: List[ParentContext[A]]) {
-    
+
     @tailrec
     def fromZipper: BinaryTree[A] = if (above.isEmpty) Node(focus,left,right) else moveUp.fromZipper
 
@@ -88,4 +88,9 @@ object BinaryTreeZipper {
     def update(a: A): Zipper[A] = Zipper(a,left,right,above)
     def mapFocus(f: A=>A): Zipper[A] = Zipper(f(focus),left,right,above)
   }
+
+
+  def apply[A](tree: BinaryTree[A]): Zipper[A]
+    = Zipper(tree.value,tree.left,tree.right,List.empty)
+
 }
