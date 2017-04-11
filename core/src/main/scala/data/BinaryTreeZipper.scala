@@ -58,25 +58,26 @@ object BinaryTreeZipper {
   case object Left extends Direction
   case object Right extends Direction
 
-  case class AboveContext[A](direction: Direction, value: A, tree: BinaryTree[A])
+  case class ParentContext[A](direction: Direction, value: A, tree: BinaryTree[A])
 
-  case class Zipper[A](focus: A, left: BinaryTree[A], right: BinaryTree[A], above: List[AboveContext[A]]) {
+  case class Zipper[A](focus: A, left: BinaryTree[A], right: BinaryTree[A], above: List[ParentContext[A]]) {
 
     /** directions are up, left and right. */
 
+    /** wip. */
     def moveUp: Zipper[A] = above match {
-      case AboveContext(d,p,s) :: cs if d == Left   => Zipper(p, Node(focus,left,right), s, cs)
-      case AboveContext(d,p,s) :: cs if d == Right  => Zipper(p, s, Node(focus,left,right), cs)
+      case ParentContext(d,p,s) :: cs if d == Left   => Zipper(p, Node(focus,left,right), s, cs)
+      case ParentContext(d,p,s) :: cs if d == Right  => Zipper(p, s, Node(focus,left,right), cs)
       case _ => throw new NoSuchElementException("up. Already at root.")
     }
 
     def moveLeft: Zipper[A] = left match {
-      case Node(_,_,_) => ???
+      case Node(n,l,r) => Zipper(n,l,r, ParentContext(Left,focus,right) :: above)
       case _ => throw new NoSuchElementException("left. At leaf node.")
     }
 
     def moveRight: Zipper[A] = right match {
-      case Node(_,_,_) => ???
+      case Node(n,l,r) => Zipper(n,l,r, ParentContext(Right,focus,left) :: above)
       case _ => throw new NoSuchElementException("right. At leaf node.")
     }
 
