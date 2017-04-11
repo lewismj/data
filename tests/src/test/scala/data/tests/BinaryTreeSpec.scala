@@ -48,6 +48,8 @@ class BinaryTreeSpec extends DataSuite {
 
     z1.focus should be(3)
     z2.focus should be(5)
+
+    z2.fromZipper.toString should be (exampleTree.toString)
   }
 
 }
