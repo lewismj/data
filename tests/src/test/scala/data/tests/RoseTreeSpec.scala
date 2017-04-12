@@ -41,12 +41,12 @@ class RoseTreeSpec extends DataSuite {
         5 -> [6,7]
      */
     val exampleTree = Node(0,
-                          List(
-                            Node(1,List(Node(2,List.empty),Node(3,List.empty))),
-                            Node(4,List.empty),
-                            Node(5,List(Node(6,List.empty),Node(7,List.empty)))))
+                          Stream(
+                            Node(1,Stream(Node(2,Stream.empty),Node(3,Stream.empty))),
+                            Node(4,Stream.empty),
+                            Node(5,Stream(Node(6,Stream.empty),Node(7,Stream.empty)))))
 
-    val z0 = Zipper(exampleTree,List.empty,List.empty,List.empty)
+    val z0 = Zipper(exampleTree,Stream.empty,Stream.empty,Stream.empty)
     z0.getLabel should be (0)
 
     val z1 = z0.firstChild.getOrElse(z0)
