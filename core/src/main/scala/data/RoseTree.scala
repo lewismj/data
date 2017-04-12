@@ -24,6 +24,7 @@
  */
 package data
 
+import data.Predef._
 
 
 /** Simple RoseTree, no ordering requirement on children etc. */

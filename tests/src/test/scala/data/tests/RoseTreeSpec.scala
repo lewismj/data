@@ -27,7 +27,8 @@ package tests
 
 import data.Predef._
 import data.RoseTree._
-import data.RoseTreeZipper._
+import data.RoseTreeZipper.Zipper
+
 
 
 class RoseTreeSpec extends DataSuite {
