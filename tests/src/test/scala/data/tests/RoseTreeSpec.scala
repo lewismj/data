@@ -61,6 +61,8 @@ class RoseTreeSpec extends DataSuite {
     val root = z3.root
 
     root should be (z0)
+
+    root.toTree should be (exampleTree)
   }
 
 }
