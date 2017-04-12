@@ -76,10 +76,5 @@ object RoseTreeZipper {
 
     /* --| Change the label at the current node. */
     def setLabel(a: A): Zipper[A] = modifyTree(t => Node(a,t.subForest))
-
-
   }
-
-
-
 }
