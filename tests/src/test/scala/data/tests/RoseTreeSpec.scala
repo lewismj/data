@@ -32,7 +32,7 @@ import data.RoseTreeZipper._
 
 class RoseTreeSpec extends DataSuite {
 
-  /** wip. */
+  /** simple test, move around example tree. */
   test("simple rose tree traversal") {
     /*
         0 -> [1,4,5]
@@ -49,8 +49,18 @@ class RoseTreeSpec extends DataSuite {
     val z0 = Zipper(exampleTree,List.empty,List.empty,List.empty)
     z0.getLabel should be (0)
 
+    val z1 = z0.firstChild.getOrElse(z0)
+    z1.getLabel should be (1)
 
+    val z2 = z1.moveRight.getOrElse(z0)
+    z2.getLabel should be(4)
 
+    val z3 = z2.moveLeft.getOrElse(z0)
+    z3.getLabel should be (1)
+
+    val root = z3.root
+
+    root should be (z0)
   }
 
 }
