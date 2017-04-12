@@ -36,6 +36,13 @@ object RoseTreeZipper {
       case None => this
     }
 
+
+    /**
+      * n.b. can change behavior to match list:
+      *         def moveForward: Zipper[A] = Zipper(right.head,left :+ focus,right.tail)
+      *         def moveBackward: Zipper[A] = Zipper(left.last,left.init,focus :: right)
+      */
+
     /* -- | The tree before this location, if any. */
     def prevTree: Option[Zipper[A]] = before match {
       case t :: ts => Some(Zipper(t,ts, focus :: after,parents))
