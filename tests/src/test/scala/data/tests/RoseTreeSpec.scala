@@ -26,7 +26,31 @@ package data
 package tests
 
 import data.Predef._
+import data.RoseTree._
+import data.RoseTreeZipper._
+
 
 class RoseTreeSpec extends DataSuite {
+
+  /** wip. */
+  test("simple rose tree traversal") {
+    /*
+        0 -> [1,4,5]
+        1 -> [2,3]
+        4 -> []
+        5 -> [6,7]
+     */
+    val exampleTree = Node(0,
+                          List(
+                            Node(1,List(Node(2,List.empty),Node(3,List.empty))),
+                            Node(4,List.empty),
+                            Node(5,List(Node(6,List.empty),Node(7,List.empty)))))
+
+    val z0 = Zipper(exampleTree,List.empty,List.empty,List.empty)
+    z0.getLabel should be (0)
+
+
+
+  }
 
 }

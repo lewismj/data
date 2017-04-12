@@ -17,6 +17,7 @@ object RoseTreeZipper {
     def fromZipper: RoseTree[A] = toTree
     def moveLeft: Option[Zipper[A]] = prevTree
     def moveRight: Option[Zipper[A]] = nextTree
+    def getLabel: A = focus.rootLabel
 
     /** -- Moving around --------------------------------------------------------------- */
     private[this] def forest(before: Forest[A], n: RoseTree[A], after: Forest[A]): Forest[A]
@@ -30,7 +31,7 @@ object RoseTreeZipper {
 
     /* -- | The top-most parent of the given location. */
     @tailrec
-    def root: Zipper[A] = parent match {
+    final def root: Zipper[A] = parent match {
       case Some(p) => p.root
       case None => this
     }
@@ -75,6 +76,8 @@ object RoseTreeZipper {
 
     /* --| Change the label at the current node. */
     def setLabel(a: A): Zipper[A] = modifyTree(t => Node(a,t.subForest))
+
+
   }
 
 

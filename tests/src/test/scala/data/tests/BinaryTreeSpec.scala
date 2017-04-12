@@ -25,12 +25,10 @@
 package data
 package tests
 
-import data.Predef._
 import data.BinaryTree._
 
 class BinaryTreeSpec extends DataSuite {
 
-  /** wip. */
   test("simple binary tree traversal") {
     val exampleTree = Node(0,
                         Node(1,
