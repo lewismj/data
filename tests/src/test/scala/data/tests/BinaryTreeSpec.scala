@@ -31,7 +31,7 @@ import data.BinaryTree._
 class BinaryTreeSpec extends DataSuite {
 
   /** wip. */
-  test("binary tree traversal") {
+  test("simple binary tree traversal") {
     val exampleTree = Node(0,
                         Node(1,
                           Node(2,Leaf,Leaf),
@@ -47,7 +47,12 @@ class BinaryTreeSpec extends DataSuite {
     val z2 = z1.moveRight
 
     z1.focus should be(3)
+    z1.left should be (Node(4,Leaf,Leaf))
+    z1.right should be (Node(5, Node(6,Leaf,Leaf),Leaf))
+
     z2.focus should be(5)
+    z2.left should be(Node(6,Leaf,Leaf))
+    z2.right should be(Leaf)
 
     z2.fromZipper.toString should be (exampleTree.toString)
   }
